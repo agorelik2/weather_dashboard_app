@@ -17,18 +17,15 @@ $(document).ready(function () {
 
         console.log (searchCity);
 
-        currentWeather(searchCity,cityLat,cityLon);
-        console.log ("show city: " + searchCity)
-        console.log ("show lat: " + cityLat);
-        console.log ("show lon: " + cityLon);
-
+        currentWeather(searchCity);
+        
         fiveDayForecast(searchCity);
 
         // updateHistory(searchCity);
     });
 
     
-    function currentWeather (searchCity,cityLat,cityLon) {
+    function currentWeather (searchCity) {
         var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + searchCity + "&appid=" + APIKey;
         console.log(queryURL);
 
@@ -66,18 +63,13 @@ $(document).ready(function () {
         
         let cityLat = response.coord.lat;
         let cityLon = response.coord.lon;
-        let Lat = cityLat;
-        let Lon = cityLon;
-
+       
         let uvIndexURL = "https://api.openweathermap.org/data/2.5/uvi?" + "&appid=" + APIKey + "&lat=" + cityLat + "&lon=" + cityLon;
           
         $.ajax({
             type: "GET",
             url: uvIndexURL,
           }).then(function (responseUV) {
-
-            console.log (responseUV);
-            console.log (responseUV.value);
 
             let currentUV = $("<div>").addClass('lead uv-index').text("UV Index: ");
             let uvValue = $("<span class='badge id='current-uv-level'>").text(responseUV.value);
@@ -155,11 +147,11 @@ $(document).ready(function () {
               $("#five-day").append(fiveDayCard);
               $("#fiveDayTemp[i]").empty();
               $(".jumbotron").append(cardbodyElem);
-          });
-        
-      }
+          }); //end of inner ajax
+         
+      } //end of for loop
       // $("#search").val("");
-    }); //end of .ajax
+    }); //end of outer .ajax
 
-    } //end of 5dayforecast
+    } //end of 5dayforecast function
 }) //end of js
