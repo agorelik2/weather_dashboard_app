@@ -23,14 +23,13 @@
 <body>
     <nav class="navbar" id="navbar">
         <span class="navbar-text stroke" id="weather-dashboard">
-            Weather Dashboard
-        </span>
-        <p class="lead text-center">Enter a city name to see today's weather and get your five day forecast.</p>
+          What's in the forecast?
+        <!-- <p class="lead text-center">Enter a city name to see today's weather and get your five day forecast.</p> -->
         <p id="currentDay" class="lead"></p>
     </nav>
       <div class="container">
           <div class="row">
-              <div class="col-3 bg-light">
+              <div class="col-3 city-search">
                       <div class="form-inline pt-3">
                           <label for="cityInput">Enter a City:</label>
                           <input type="cityInput" class="form-control" id="cityInput" placeholder="Search" aria-label="Search">
@@ -45,14 +44,14 @@
               
               <div class= "mainBody col-9">
                   
-                <div class="jumbotron jumbotron-fluid">
+                <div class="jumbotron jumbotron-fluid weather-display">
                   <div class="container">
-                      <h1 class="display-4">What's in the forecast?</h1>
-                      
-                      <p class="lead wind">Wind</p>
-                      <p class="lead humidity">Humidity</p>
-                      <p class="lead temp">Temp F°</p>
-                      <p class="lead uv-index">UV Index: <span class="badge" id="current-uv-level"></span></p>
+                      <!-- <h4 class="display-4">What's in the forecast?</h4> -->
+                      <p class="lead text-left align=">Enter a city name to see today's weather and get your five day forecast.</p> 
+                      <!-- <p class="lead wind">Wind</p> -->
+                      <!-- <p class="lead humidity">Humidity</p> -->
+                      <!-- <p class="lead temp">Temp F°</p> -->
+                      <!-- <p class="lead uv-index">UV Index: <span class="badge" id="current-uv-level"></span></p> -->
                   </div>
               </div>
           </div>

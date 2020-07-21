@@ -1,23 +1,16 @@
-// var searchHistory = {
-//     searches: [],
-//   };
-
-let searchArr = [];
-
 $(document).ready(function () {
     
     var APIKey = "b842e13062ebcdc52faeb1014bc3a489";
+    let searchArr = [];
     renderSearchList();
 
+    //Main Routine
     $("#searchBtn").click(function (event) {
         event.preventDefault();
         //grab search term from input search field
         let searchCity = $("#cityInput").val().trim();
         let cityLat = "";
         let cityLon = "";
-
-        console.log (searchCity);
-
         currentWeather(searchCity);
         
         fiveDayForecast(searchCity);
@@ -25,7 +18,7 @@ $(document).ready(function () {
         updateHistory(searchCity);
     });
 
-    //new code added to display weather when one of the history city buttons is clicked
+    //Display weather when one of the history city buttons is clicked
     $(document).on("click", ".city-btn", function () {
       JSON.parse(localStorage.getItem("cities"));
       let searchCity = $(this).text();
@@ -33,29 +26,28 @@ $(document).ready(function () {
       fiveDayForecast(searchCity);
     });
 
+    //Render all of the past city searches from the search history
     function renderSearchList() {
       let searchList = JSON.parse(localStorage.getItem("cities"));
       console.log ("Cities: " + searchList);
 
       $("#searchHistory").empty();
       if (searchList) {
+        
           for (i = 0; i < searchList.length; i++) {
-              let listBtn = $("<button>").addClass("btn btn-secondary city-btn").attr('id', 'cityname_' + (i + 1)).text(searchList[i]);
+              let listBtn = $("<button>").addClass("btn btn-primary city-btn").attr('id', 'cityname_' + (i + 1)).text(searchList[i]);
               let listElem = $("<li>").attr('class', 'list-group-item');
-              listElem.append(listBtn);//prepend not append??
+              listElem.append(listBtn);
 
               //add the newest search button on the top of the search history list
               $("#searchHistory").prepend(listElem);
           }
       }
   }
-    
+    //Display current weather conditions for the city
     function currentWeather (searchCity) {
         let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + searchCity + "&appid=" + APIKey;
         console.log(queryURL);
-
-        //add search term to top of list of cities
-        //$("<button>").text(searchCity).prepend(".list-group-item"); //latest change does not work
 
         //ajax call for local weather
         $.ajax({
@@ -68,10 +60,10 @@ $(document).ready(function () {
         $(".wind").text("Wind Speed: " + response.wind.speed);
         $(".humidity").text("Humidity: " + response.main.humidity);
        
-        let cityName = $(".jumbotron").addClass("city-weather").text(response.name + " Weather Details  ");
         let currentDate = moment().format("  MM-DD-YYYY");
-        //let headline = $("<h2>" + cityName + ' (' + currentDate + ') ' + "</h2>");
-        let windData = $("<p>").text("Wind Speed: " + response.wind.speed).addClass("lead");
+        let cityName = $(".jumbotron").addClass("city-weather").text(response.name + " Weather Details for " + currentDate);
+        
+        let windData = $("<p>").text("Wind Speed: " + response.wind.speed + "mph").addClass("lead");
         let humidityData = $("<p>").text("Humidity: " + response.main.humidity + "%").addClass("lead");
 
         // Convert the temp to fahrenheit
