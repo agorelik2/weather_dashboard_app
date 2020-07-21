@@ -25,6 +25,14 @@ $(document).ready(function () {
         updateHistory(searchCity);
     });
 
+    //new code added to display weather when one of the history city buttons is clicked
+    $(document).on("click", ".city-btn", function () {
+      JSON.parse(localStorage.getItem("cities"));
+      let searchCity = $(this).text();
+      currentWeather(searchCity);
+      fiveDayForecast(searchCity);
+    });
+
     function renderSearchList() {
       let searchList = JSON.parse(localStorage.getItem("cities"));
       console.log ("Cities: " + searchList);
@@ -34,16 +42,22 @@ $(document).ready(function () {
           for (i = 0; i < searchList.length; i++) {
               let listBtn = $("<button>").addClass("btn btn-secondary city-btn").attr('id', 'cityname_' + (i + 1)).text(searchList[i]);
               let listElem = $("<li>").attr('class', 'list-group-item');
-              listElem.append(listBtn);
-              $("#searchHistory").append(listElem);
+              listElem.append(listBtn);//prepend not append??
+
+              //add the newest search button on the top of the search history list
+              $("#searchHistory").prepend(listElem);
           }
       }
   }
     
     function currentWeather (searchCity) {
-        var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + searchCity + "&appid=" + APIKey;
+        let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + searchCity + "&appid=" + APIKey;
         console.log(queryURL);
 
+        //add search term to top of list of cities
+        //$("<button>").text(searchCity).prepend(".list-group-item"); //latest change does not work
+
+        //ajax call for local weather
         $.ajax({
           url: queryURL,
           method: "GET"
