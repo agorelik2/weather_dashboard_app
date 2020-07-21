@@ -1,12 +1,13 @@
-var searchHistory = {
-    searches: [],
-  };
+// var searchHistory = {
+//     searches: [],
+//   };
 
+let searchArr = [];
 
 $(document).ready(function () {
-    // renderSearchList();
+    
     var APIKey = "b842e13062ebcdc52faeb1014bc3a489";
-   
+    renderSearchList();
 
     $("#searchBtn").click(function (event) {
         event.preventDefault();
@@ -21,9 +22,23 @@ $(document).ready(function () {
         
         fiveDayForecast(searchCity);
 
-        // updateHistory(searchCity);
+        updateHistory(searchCity);
     });
 
+    function renderSearchList() {
+      let searchList = JSON.parse(localStorage.getItem("cities"));
+      console.log ("Cities: " + searchList);
+
+      $("#searchHistory").empty();
+      if (searchList) {
+          for (i = 0; i < searchList.length; i++) {
+              let listBtn = $("<button>").addClass("btn btn-secondary city-btn").attr('id', 'cityname_' + (i + 1)).text(searchList[i]);
+              let listElem = $("<li>").attr('class', 'list-group-item');
+              listElem.append(listBtn);
+              $("#searchHistory").append(listElem);
+          }
+      }
+  }
     
     function currentWeather (searchCity) {
         var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + searchCity + "&appid=" + APIKey;
@@ -88,7 +103,7 @@ $(document).ready(function () {
             }
             
             cityName.append(currentUV);
-            
+            renderSearchList();
             
           }) //end ajax
           //$("#five-day").empty();
@@ -154,4 +169,16 @@ $(document).ready(function () {
     }); //end of outer .ajax
 
     } //end of 5dayforecast function
+
+    function updateHistory(searchCity) {
+
+      let previousCity = JSON.parse(localStorage.getItem("cities"));
+      if (previousCity) {
+          previousCity.push(searchCity);
+          localStorage.setItem("cities", JSON.stringify(previousCity));
+      } else {
+          searchArr.push(searchCity);
+          localStorage.setItem("cities", JSON.stringify(searchArr));
+      }
+    }//end of updateHistory function
 }) //end of js
