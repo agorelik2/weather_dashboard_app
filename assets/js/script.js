@@ -1,7 +1,7 @@
 $(document).ready(function () {
     
     var APIKey = "b842e13062ebcdc52faeb1014bc3a489";
-    let searchArr = [];
+    let searchHistoryArr = [];
     renderSearchList();
 
     //Main Routine
@@ -18,7 +18,7 @@ $(document).ready(function () {
         updateHistory(searchCity);
     });
 
-    //Display weather when one of the history city buttons is clicked
+    //Display weather when one of the city buttons from the search history is clicked
     $(document).on("click", ".city-btn", function () {
       JSON.parse(localStorage.getItem("cities"));
       let searchCity = $(this).text();
@@ -31,11 +31,14 @@ $(document).ready(function () {
       let searchList = JSON.parse(localStorage.getItem("cities"));
       console.log ("Cities: " + searchList);
 
+      //Clear search history
       $("#searchHistory").empty();
+
+      //Re-build the search history
       if (searchList) {
         
           for (i = 0; i < searchList.length; i++) {
-              let listBtn = $("<button>").addClass("btn btn-primary city-btn").attr('id', 'cityname_' + (i + 1)).text(searchList[i]);
+              let listBtn = $("<button>").addClass("btn btn-primary city-btn").attr('id', 'cityData_' + (i + 1)).text(searchList[i]);
               let listElem = $("<li>").attr('class', 'list-group-item');
               listElem.append(listBtn);
 
@@ -56,12 +59,17 @@ $(document).ready(function () {
         }).then(function(response) {
         
         // Transfer content to HTML
-        $(".city").html("<h1>" + response.name + " Weather Details</h1>");
-        $(".wind").text("Wind Speed: " + response.wind.speed);
-        $(".humidity").text("Humidity: " + response.main.humidity);
+        // $(".city").html("<h1>" + response.name + " Weather</h1>");
+        // $(".wind").text("Wind Speed: " + response.wind.speed);
+        // $(".humidity").text("Humidity: " + response.main.humidity);
        
-        let currentDate = moment().format("  MM-DD-YYYY");
-        let cityName = $(".jumbotron").addClass("city-weather").text(response.name + " Weather Details for " + currentDate);
+        // let currentDate = moment().format("  MM-DD-YYYY");
+
+        //Build HTML/CSS for the current weather display
+        console.log (response);
+        
+        let currentDate = moment().format("dddd, MMMM Do YYYY, h:mm:ss a")
+        let cityData = $(".jumbotron").addClass("city-weather").text(response.name + " Weather for " + currentDate);
         
         let windData = $("<p>").text("Wind Speed: " + response.wind.speed + "mph").addClass("lead");
         let humidityData = $("<p>").text("Humidity: " + response.main.humidity + "%").addClass("lead");
@@ -78,10 +86,10 @@ $(document).ready(function () {
         var iconCode = response.weather[0].icon;
         var iconUrl = "https://openweathermap.org/img/wn/" + iconCode + ".png";
         let weatherImg = $("<img>").attr("src", iconUrl);
-        cityName.append(weatherImg, windData, humidityData, tempData, tempDataF);
-        $("container").append(cityName);
+        cityData.append(weatherImg, windData, humidityData, tempData, tempDataF);
+        $("container").append(cityData);
 
-        
+        //Get data and build UI for UV Index
         let cityLat = response.coord.lat;
         let cityLon = response.coord.lon;
        
@@ -96,6 +104,7 @@ $(document).ready(function () {
             let uvValue = $("<span class='badge id='current-uv-level'>").text(responseUV.value);
             currentUV.append(uvValue);
             
+            //Color UV Index based on its value
             if (responseUV.value >= 0 && responseUV.value < 3) {
                 $(uvValue).addClass("badge-success");
             } else if (responseUV.value >= 3 && responseUV.value < 6) {
@@ -108,19 +117,20 @@ $(document).ready(function () {
                 $(uvValue).addClass("badge-danger");
             }
             
-            cityName.append(currentUV);
+            cityData.append(currentUV);
             renderSearchList();
             
-          }) //end ajax
-          //$("#five-day").empty();
-          
-        });   
+          }) //end inner ajax
+           
+        });  //end outer ajax
         
     };  //end of currentWeather
 
+    //Find, build HTML and display weather forecast for the next 5 days
     function fiveDayForecast (searchCity) { 
 
-      console.log ("from fiveday: " + searchCity);
+      $("#five-day").empty();
+
       var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + searchCity + "&appid=" + APIKey;
         console.log(queryURL);
 
@@ -132,10 +142,7 @@ $(document).ready(function () {
           let cityLat = response.coord.lat;
           let cityLon = response.coord.lon;
          
-          console.log ("5days response lan:" + cityLat);
-          console.log ("5days response lon:" + cityLon);
-        
-        //start 5 day forecast ajax
+        //Start 5 day forecast ajax
         let day5QueryURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + cityLat + "&lon=" + cityLon + "&units=imperial" + "&appid=" + APIKey;
   
         for (let i = 1; i < 6; i++) {
@@ -143,6 +150,8 @@ $(document).ready(function () {
               url: day5QueryURL,
               type: "GET"
           }).then(function (response5Day) {
+
+              //Dynamically build html for the next 5 days forecast
               let cardbodyElem = $("<div>").addClass("card-body");
   
               let fiveDayCard = $("<div>").addClass(".cardbody");
@@ -170,12 +179,15 @@ $(document).ready(function () {
               $(".jumbotron").append(cardbodyElem);
           }); //end of inner ajax
          
-      } //end of for loop
-      // $("#search").val("");
+      } //end of 'for' loop
+
+      //Clear up the search input value
+      $("#cityInput").val("");
     }); //end of outer .ajax
 
     } //end of 5dayforecast function
 
+    //Update search history stored in the localStorage
     function updateHistory(searchCity) {
 
       let previousCity = JSON.parse(localStorage.getItem("cities"));
@@ -183,8 +195,8 @@ $(document).ready(function () {
           previousCity.push(searchCity);
           localStorage.setItem("cities", JSON.stringify(previousCity));
       } else {
-          searchArr.push(searchCity);
-          localStorage.setItem("cities", JSON.stringify(searchArr));
+          searchHistoryArr.push(searchCity);
+          localStorage.setItem("cities", JSON.stringify(searchHistoryArr));
       }
     }//end of updateHistory function
 }) //end of js
