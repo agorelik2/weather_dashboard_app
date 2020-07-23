@@ -1,5 +1,9 @@
 # weather_dashboard_app
 
+LINK TO DEPLOYED SITE:
+https://agorelik2.github.io/weather_dashboard_app/
+
+
 This is a weather dashboard application to show user today's weather and 5 day future forecast for a city that he/she searches. Data included in the forecast is windspeed, humidity, temp in Fahrenheit, and UV index level with badge indicating safety level.
 
 Built with: HTML, CSS, JS, Bootstrap, OpenWeather Api's for weather data, moment js for date information and Google fonts api. Weather symbol pulled in from openweather api. Link to openweather api and documentation: https://openweathermap.org/api
@@ -16,4 +20,8 @@ Plans for future development: Add a clear search list button to clear local stor
 
 Pull in a picture of the city searched and display in the jumbotron with the weather. You could use a photo api to pull in and display the page.
 
-Picture of Weather Dashboard:
+Pictures of Weather Dashboard:
+
+docs\images\2020-07-22 (4).png
+docs\images\2020-07-22 (5).png
+docs\images\2020-07-22 (6).png
