@@ -68,8 +68,9 @@ $(document).ready(function () {
         //Build HTML/CSS for the current weather display
         console.log (response);
         
-        let currentDate = moment().format("dddd, MMMM Do YYYY, h:mm:ss a")
-        let cityData = $(".jumbotron").addClass("city-weather").text(response.name + " Weather for " + currentDate);
+        // let currentDate = moment().format("dddd, MMMM Do YYYY, h:mm:ss a")
+        let currentDate = moment().format('MMMM Do, YYYY');
+        let cityData = $(".jumbotron").addClass("city-weather").text(response.name + " weather on " + currentDate);
         
         let windData = $("<p>").text("Wind Speed: " + response.wind.speed + "mph").addClass("lead");
         let humidityData = $("<p>").text("Humidity: " + response.main.humidity + "%").addClass("lead");
@@ -155,7 +156,8 @@ $(document).ready(function () {
               let cardbodyElem = $("<div>").addClass("card-body");
   
               let fiveDayCard = $("<div>").addClass(".cardbody");
-              let fiveDate = $("<h5>").text(moment.unix(response5Day.daily[i].dt).format("MM/DD/YYYY"));
+              let fiveDate = $("<p>").text(moment.unix(response5Day.daily[i].dt).format("MM/DD/YYYY"));
+              // let fiveDate = $("<h5>").text(moment.unix(response5Day.daily[i].dt).format("MM/DD/YYYY"));
               fiveDayCard.addClass("headline");
   
               let fiveDayTemp = $("<p>").text("Temp: " + response5Day.daily[i].temp.max + "°");

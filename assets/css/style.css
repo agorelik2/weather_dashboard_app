@@ -19,9 +19,12 @@ body {
     padding-left: 15px;
     /* margin-left: auto;  */
 }
+
 .city-search{
     background-color: #c6eeffe6;
+    display: table-cell;
 }
+
 .list-group-item{
     background-color:#eff1f300;
 }
@@ -38,8 +41,8 @@ body {
     border: solid #1b998b 2px;
     margin: 20px;
     padding: 20px;
-    flex-direction: row;
-    width: auto;
+    flex-direction: row; 
+    width: auto;  
 }
 
 .lead {
