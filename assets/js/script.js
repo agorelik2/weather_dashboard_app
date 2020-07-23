@@ -66,7 +66,7 @@ $(document).ready(function () {
         // let currentDate = moment().format("  MM-DD-YYYY");
 
         //Build HTML/CSS for the current weather display
-        console.log (response);
+        //console.log (response);
         
         // let currentDate = moment().format("dddd, MMMM Do YYYY, h:mm:ss a")
         let currentDate = moment().format('MMMM Do, YYYY');
