@@ -16,6 +16,26 @@ After user searched on the city, the name of the city will be stored in local st
 Cities searched will display in button form in a list on the left side of the application. 
 When each city button is clicked, the application will display weather results for that city. The results will 
 
+## API Usage
+https://openweathermap.org/api
+
+
+## URLs
+
+The URL of the GitHub repository:
+https://github.com/agorelik2/weather_dashboard_app
+
+The URL of the deployed application:
+https://agorelik2.github.io/weather_dashboard_app/
+
+
+## Pictures of Weather Dashboard
+
+![weather-dashboard-app img 1](images/image1.png)
+![weather-dashboard-app img 2](images/image2.png)
+![weather-dashboard-app img 3](images/image3.png)
+
+
 ## Usage
 
 ```
@@ -38,16 +58,7 @@ Add a clear search list button to clear local storage to clear city search butto
 
 Pull in a picture of the city searched and display in the jumbotron with the weather. You could use a photo api to pull in and display the page.
 
-## API Usage
-https://openweathermap.org/api
 
 
-## URLs
-The URL of the GitHub repository:
-https://github.com/agorelik2/weather_dashboard_app
 
-The URL of the deployed application:
-https://agorelik2.github.io/weather_dashboard_app/
-
-## Pictures of Weather Dashboard:
 
