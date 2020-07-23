@@ -22,6 +22,6 @@ Pull in a picture of the city searched and display in the jumbotron with the wea
 
 Pictures of Weather Dashboard:
 
-docs\images\2020-07-22 (4).png
-docs\images\2020-07-22 (5).png
-docs\images\2020-07-22 (6).png
+! [screenshot_1] docs\images\2020-07-22 (4).png
+! [screenshot_2] docs\images\2020-07-22 (5).png
+! [screenshot_3] docs\images\2020-07-22 (6).png
