@@ -22,3 +22,6 @@ Pull in a picture of the city searched and display in the jumbotron with the wea
 
 Pictures of Weather Dashboard:
 
+![](images/image1.png)
+![](images/image2.png)
+![](images/image3.png)
