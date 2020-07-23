@@ -52,6 +52,7 @@ WHEN user clicks on a city in the search history,
 THEN he is again presented with current and future conditions for that city.
 WHEN user opens the weather dashboard,
 THEN he is presented with the last searched city forecast.
+```
 
 ## Plans for future development
 Add a clear search list button to clear local storage to clear city search buttons list.
