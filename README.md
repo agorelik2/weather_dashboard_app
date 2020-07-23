@@ -32,7 +32,7 @@ https://agorelik2.github.io/weather_dashboard_app/
 ## Pictures of Weather Dashboard
 
 ![weather-dashboard-app img 1](images/image1.png)
-![weather-dashboard-app img 2](images/image2.png)
+
 ![weather-dashboard-app img 3](images/image3.png)
 
 
